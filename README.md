@@ -24,6 +24,31 @@ The trio consists of a sequence of 16 phrases (numbered 0 to 15), each chosen at
 
 If the result is *s*, then play `trioi-s.wav`. For example, if you roll a 6 for phrase 15, then play `trio15-6.wav`.
 
+### Data files
+
+The musical phrases have been provided as a set of WAV files. Each phrase was generated using the tools described in the [Credits](#credits) section below. The `piano` directory contains the 272 WAV files (11×16=176 for the minuet phrases and 6×16=96 for the trio phrases), using the naming conventions described above. Other directories (`clarinet`, `flute-harp`, and `mbira` contain the same 272 musical phrases, but generated using different musical instruments.
+
+### Generating WAV Files
+
+WAV files will be generated using randomly selected phrases as described above, creating and writing the new file
+
+Unlike the original version of the assignment in which the new composition was created simply by playing the selected WAV files in turn, we will generate new WAV files using the [wave](https://docs.python.org/3/library/wave.html) module of the Python standard library and write them to disk to be played later.
+
+### Playing WAV Files
+
+To play the generated WAV files we will use the [simpleaudio](https://simpleaudio.readthedocs.io/en/latest/) package which "provides cross-platform, dependency-free audio playback capability for Python 3 on macOS, Windows, and Linux."
+
+**Note:** when installing `simpleaudio` under WSL2 I encountered the following error:
+
+```shell
+fatal error: alsa/asoundlib.h: No such file or directory
+```
+
+This was resolved by installing `libasound2-dev` with
+
+```shell
+apt install libasound2-dev
+```
 
 ## Credits
 
