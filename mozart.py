@@ -3,12 +3,12 @@ from minuet import Minuet
 
 
 def main():
-    # select instrument
+    # TODO: select minuet or trio
+    # TODO: select instrument
     minuet = Minuet("piano")
     minuet.compose()
     minuet.play()
-    # save minuet
-    # minuet.save(filename)
+    # TODO: save minuet
 
 
 if __name__ == "__main__":
