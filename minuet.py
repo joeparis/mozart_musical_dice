@@ -38,7 +38,7 @@ class Minuet:
             output.setparams(data[0][0])
 
             for idx, _ in enumerate(data):
-                output.writeframes(data[idx][1])
+                output.writeframes(data[idx][1])  # pylint: disable=unnecessary-list-index-lookup
 
             output.close()
 
