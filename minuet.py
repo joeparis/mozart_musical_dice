@@ -33,17 +33,16 @@ class Minuet:
             data.append([wav.getparams(), wav.readframes(wav.getnframes())])
             wav.close()
 
-        temp = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp:
+            output = wave.open(temp, "wb")
+            output.setparams(data[0][0])
 
-        output = wave.open(temp, "wb")
-        output.setparams(data[0][0])
+            for idx, _ in enumerate(data):
+                output.writeframes(data[idx][1])
 
-        for idx, _ in enumerate(data):
-            output.writeframes(data[idx][1])
+            output.close()
 
-        output.close()
-
-        self.composition = temp.name
+            self.composition = temp.name
 
     def save(self, filename: str) -> None:
         pass
