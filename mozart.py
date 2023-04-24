@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from enum import Enum
 from os import name, system
 
 from minuet import Minuet
