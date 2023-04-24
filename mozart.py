@@ -5,6 +5,17 @@ from minuet import Minuet
 
 
 def get_selection(prompt: str, options: tuple, clear_screen=True) -> str:
+    """Get user selection.
+
+    Args:
+        prompt (str): Prompt to display to user.
+        options (tuple): Options user may select from.
+        clear_screen (bool, optional): Whether to clear the screen before
+            displaying the prompt. Defaults to True.
+
+    Returns:
+        str: The user's selection value.
+    """
     if clear_screen:
         clear()
 
