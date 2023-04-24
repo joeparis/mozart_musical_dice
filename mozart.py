@@ -5,61 +5,18 @@ from os import name, system
 from minuet import Minuet
 
 
-class Instrument(Enum):
-    CLARINET = 1
-    FLUTE = 2
-    MBIRA = 3
-    PIANO = 4
-
-
-class Style(Enum):
-    MINUET = 1
-    TRIO = 2
-
-
-def get_style() -> str:
-    prompt = """What style of composition would you like?
-
-    1. minuet
-    2. trio"""
+def get_selection(prompt: str, options: tuple, clear_screen=True) -> str:
+    if clear_screen:
+        clear()
 
     print(prompt)
+    for idx, option in enumerate(options):
+        print(f"  {idx + 1}. {option.lower()}")
+
     print()
+    selection = int(input("Please enter the number of your selection: ")) - 1
 
-    style = int(input("Please enter the number of your selection: "))
-
-    match style:
-        case Style.MINUET.value:
-            return "minuet"
-        case Style.TRIO.value:
-            return "trio"
-        case _:
-            return "unknown"
-
-
-def get_instrument() -> str:
-    prompt = """What instrument would you like to use? You may choose:
-
-    1. clarinet
-    2. flute
-    3. mbira
-    4. piano """
-
-    print(prompt)
-    print()
-    instrument = int(input("Please enter the number of your selection: "))
-
-    match instrument:
-        case Instrument.CLARINET.value:
-            return "clarinet"
-        case Instrument.FLUTE.value:
-            return "flute-harp"
-        case Instrument.MBIRA.value:
-            return "mbira"
-        case Instrument.PIANO.value:
-            return "piano"
-        case _:
-            return "unknown"
+    return options[selection].replace(" & ", "-")  # HACK
 
 
 def clear():
@@ -68,10 +25,12 @@ def clear():
 
 
 def main():
-    clear()
-    style = get_style()
-    clear()
-    instrument = get_instrument()
+    styles = ("minuet", "trio")
+    instruments = ("clarinet", "flute & harp", "mbira", "piano")
+
+    style = get_selection("What style of composition would you like to create? ", styles)
+    instrument = get_selection("What instrument would you like to use? ", instruments)
+
     # composition = Minuet(instrument) if style == "minuet" else Trio(instrument)
     composition = Minuet(instrument)
     composition.compose()
