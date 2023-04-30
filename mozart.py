@@ -45,8 +45,8 @@ def clear():
 
 def main():
     clear()
-    instrument = get_instrument_wav_path()
-    print(instrument)
+    instrument_path = get_instrument_wav_path()
+    print(instrument_path)
 
     # # composition = Minuet(instrument) if style == "minuet" else Trio(instrument)
     # composition = Minuet(instrument)
