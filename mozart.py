@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 from collections import namedtuple
 from os import name, system
 from pathlib import Path
@@ -27,13 +28,15 @@ def get_instrument_wav_path() -> Path:
     """Get the path for the desired instrument's WAV files."""
     available_instruments = get_instruments()
 
-    for index, instrument in available_instruments.items():
-        print(f"  {index}. {instrument.name}")
+    while True:
+        for index, instrument in available_instruments.items():
+            print(f"  {index}. {instrument.name}")
 
-    print()
-    selection = int(input("Please enter the number of your selection: "))
-
-    return available_instruments[selection].path
+        selection = int(input("\nPlease enter the number of your selection: "))
+        try:
+            return available_instruments[selection].path
+        except KeyError:
+            print(f"\nSorry, {selection} is not a valid option. Please try again.\n")
 
 
 def clear():
@@ -43,7 +46,6 @@ def clear():
 
 def main():
     clear()
-
     instrument = get_instrument_wav_path()
     print(instrument)
 
