@@ -33,6 +33,7 @@ def clear():
     """Clear the screen."""
     _ = system("cls") if name == "nt" else system("clear")
 
+def get_style() -> 
 
 def main():
     styles = ("minuet", "trio")

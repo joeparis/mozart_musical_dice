@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-import pathlib
-import tempfile
-import wave
+# import pathlib
+# import tempfile
+# import wave
 
-import simpleaudio as sa
+# import simpleaudio as sa
 
-from die import Die
+# from die import Die
+from composition import Composition
 
 
-class Minuet:
+class Minuet(Composition):
+    """A"""
+
     def __init__(self, instrument: str = "piano") -> None:
         self.instrument_path = pathlib.Path(f"./phrases/{instrument}")
 
