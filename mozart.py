@@ -1,51 +1,56 @@
 #!/usr/bin/env python3
+from collections import namedtuple
 from os import name, system
+from pathlib import Path
 
-from minuet import Minuet
+Instrument = namedtuple("Instrument", "name,path")
 
 
-def get_selection(prompt: str, options: tuple, clear_screen=True) -> str:
-    """Get user selection.
+def get_instruments() -> dict[int, Instrument]:
+    """Get name, path, and index of all available instruments."""
+    instruments = sorted(
+        [
+            instrument
+            for instrument in Path(Path.cwd() / "instruments").iterdir()
+            if instrument.is_dir()
+        ],
+        key=lambda path: path.name,
+    )
 
-    Args:
-        prompt (str): Prompt to display to user.
-        options (tuple): Options user may select from.
-        clear_screen (bool, optional): Whether to clear the screen before
-            displaying the prompt. Defaults to True.
+    return {
+        index + 1: Instrument(name=str(path.name).lower().replace("-", " & "), path=path)
+        for index, path in enumerate(instruments)
+    }
 
-    Returns:
-        str: The user's selection value.
-    """
-    if clear_screen:
-        clear()
 
-    print(prompt)
-    for idx, option in enumerate(options):
-        print(f"  {idx + 1}. {option.lower().replace('-', ' & ')}")
+def get_instrument_wav_path() -> Path:
+    """Get the path for the desired instrument's WAV files."""
+    available_instruments = get_instruments()
+
+    for index, instrument in available_instruments.items():
+        print(f"  {index}. {instrument.name}")
 
     print()
-    selection = int(input("Please enter the number of your selection: ")) - 1
+    selection = int(input("Please enter the number of your selection: "))
 
-    return options[selection]
+    return available_instruments[selection].path
 
 
 def clear():
     """Clear the screen."""
     _ = system("cls") if name == "nt" else system("clear")
 
-def get_style() -> 
 
 def main():
-    styles = ("minuet", "trio")
-    instruments = ("clarinet", "flute-harp", "mbira", "piano")
+    clear()
 
-    style = get_selection("What style of composition would you like to create? ", styles)
-    instrument = get_selection("What instrument would you like to use? ", instruments)
+    instrument = get_instrument_wav_path()
+    print(instrument)
 
-    # composition = Minuet(instrument) if style == "minuet" else Trio(instrument)
-    composition = Minuet(instrument)
-    composition.compose()
-    composition.play()
+    # # composition = Minuet(instrument) if style == "minuet" else Trio(instrument)
+    # composition = Minuet(instrument)
+    # composition.compose()
+    # composition.play()
 
     # TODO: save minuet
 
