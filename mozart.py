@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import sys
 from collections import namedtuple
 from os import name, system
 from pathlib import Path
