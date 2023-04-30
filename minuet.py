@@ -13,7 +13,7 @@ class Minuet(Composition):
     """A"""
 
     def __init__(self, instrument: str = "piano") -> None:
-        self.instrument_path = pathlib.Path(f"./phrases/{instrument}")
+        self.instrument_path = pathlib.Path(f"./instruments/{instrument}")
 
         if not self.instrument_path.exists():
             raise ValueError(f"{instrument} is not a valid instrument")
