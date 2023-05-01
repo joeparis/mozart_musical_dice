@@ -3,6 +3,8 @@ from collections import namedtuple
 from os import name, system
 from pathlib import Path
 
+from waltz import Waltz
+
 Instrument = namedtuple("Instrument", "name,path")
 
 
@@ -46,12 +48,9 @@ def clear():
 def main():
     clear()
     instrument_path = get_instrument_wav_path()
-    print(instrument_path)
-
-    # # composition = Minuet(instrument) if style == "minuet" else Trio(instrument)
-    # composition = Minuet(instrument)
-    # composition.compose()
-    # composition.play()
+    composition = Waltz(instrument_path)
+    composition.compose()
+    composition.play()
 
     # TODO: save minuet
 
