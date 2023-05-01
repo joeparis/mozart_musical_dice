@@ -9,7 +9,7 @@ Instrument = namedtuple("Instrument", "name,path")
 
 
 def get_instruments() -> dict[int, Instrument]:
-    """Get name, path, and index of all available instruments."""
+    """Get all available instruments."""
     instruments = sorted(
         [
             instrument
