@@ -5,7 +5,6 @@ from pathlib import Path
 
 import simpleaudio as sa
 
-# from composition import Composition
 from die import Die
 
 
