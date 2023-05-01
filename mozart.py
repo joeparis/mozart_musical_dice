@@ -3,6 +3,9 @@ from collections import namedtuple
 from os import name, system
 from pathlib import Path
 
+from consolemenu import ConsoleMenu, SelectionMenu
+from consolemenu.items import CommandItem, MenuItem
+
 from waltz import Waltz
 
 Instrument = namedtuple("Instrument", "name,path")
