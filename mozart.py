@@ -3,15 +3,14 @@ from collections import namedtuple
 from os import name, system
 from pathlib import Path
 
-from consolemenu import ConsoleMenu, SelectionMenu
-from consolemenu.items import CommandItem, MenuItem
+from consolemenu import SelectionMenu
 
 from waltz import Waltz
 
 Instrument = namedtuple("Instrument", "name,path")
 
 
-def get_instruments() -> dict[int, Instrument]:
+def get_instruments() -> list[Instrument]:
     """Get all available instruments."""
     instruments = sorted(
         [
@@ -22,25 +21,23 @@ def get_instruments() -> dict[int, Instrument]:
         key=lambda path: path.name,
     )
 
-    return {
-        index + 1: Instrument(name=str(path.name).lower().replace("-", " & "), path=path)
-        for index, path in enumerate(instruments)
-    }
+    return [
+        Instrument(name=str(path.name).lower().replace("-", " & "), path=path)
+        for path in instruments
+    ]
 
 
 def get_instrument_wav_path() -> Path:
     """Get the path for the desired instrument's WAV files."""
     available_instruments = get_instruments()
 
-    while True:
-        for index, instrument in available_instruments.items():
-            print(f"  {index}. {instrument.name}")
+    selection = SelectionMenu.get_selection(
+        strings=[instrument.name for instrument in available_instruments],
+        title="Let's make a Musikalisches Würfelspiel...",
+        subtitle="Please select your instrument:",
+    )
 
-        selection = int(input("\nPlease enter the number of your selection: "))
-        try:
-            return available_instruments[selection].path
-        except KeyError:
-            print(f"\nSorry, {selection} is not a valid option. Please try again.\n")
+    return available_instruments[selection].path
 
 
 def clear():
@@ -49,13 +46,13 @@ def clear():
 
 
 def main():
-    clear()
-
     instrument_path = get_instrument_wav_path()
 
     composition = Waltz(instrument_path)
     composition.compose()
+    print("Playing...")
     composition.play()
+    clear()
 
     # TODO: save minuet
 
