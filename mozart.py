@@ -47,7 +47,9 @@ def clear():
 
 def main():
     clear()
+
     instrument_path = get_instrument_wav_path()
+
     composition = Waltz(instrument_path)
     composition.compose()
     composition.play()
