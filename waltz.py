@@ -1,11 +1,4 @@
 #!/usr/bin/env python3
-"""A randomly generated musical composition.
-
-A Musikalisches Würfelspiel is a process for generating music by concatenating a
-random sequence of precomposed musical fragments. This class represents a
-Musikalisches Würfelspiel-style Viennese waltz in the style of Mozart by
-combining a sequence of WAV files that are chosen at random (from a set of 272)
-according to the results of throwing dice."""
 import tempfile
 import wave
 from pathlib import Path
@@ -17,7 +10,13 @@ from die import Die
 
 
 class Waltz:
-    """A"""
+    """A randomly generated musical composition.
+
+    A Musikalisches Würfelspiel is a process for generating music by concatenating a
+    random sequence of precomposed musical fragments. This class represents a
+    Musikalisches Würfelspiel-style Viennese waltz in the style of Mozart by
+    combining a sequence of WAV files that are chosen at random (from a set of 272)
+    according to the results of throwing dice."""
 
     def __init__(self, instrument_path: Path) -> None:
         self.instrument_path = instrument_path
@@ -29,6 +28,7 @@ class Waltz:
         self.composition = None
 
     def compose(self):
+        """Compose the waltz."""
         die = Die()
 
         phrases = [
@@ -64,6 +64,7 @@ class Waltz:
         pass
 
     def play(self) -> None:
+        """Play the waltz."""
         wave_obj = sa.WaveObject.from_wave_file(self.composition)
         play_obj = wave_obj.play()
         play_obj.wait_done()
