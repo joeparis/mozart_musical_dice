@@ -45,6 +45,19 @@ def clear():
     _ = system("cls") if name == "nt" else system("clear")
 
 
+def save_waltz() -> bool:
+    # selection = SelectionMenu.get_selection(strings=["Yes", "No"], title="Save your waltz?",)
+    menu = SelectionMenu(strings=["Yes", "No"], title="Save your waltz?", show_exit_option=False)
+    menu.show()
+    menu.join()
+    selection = menu.selected_option
+
+    if selection == 0:
+        return True
+
+    return False
+
+
 def main():
     instrument_path = get_instrument_wav_path()
 
@@ -54,7 +67,9 @@ def main():
     composition.play()
     clear()
 
-    # TODO: save minuet
+    if save_waltz():
+        filename = input("Please enter a name for your waltz: ")
+        composition.save(filename)
 
 
 if __name__ == "__main__":

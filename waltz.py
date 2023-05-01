@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import shutil
 import tempfile
 import wave
 from pathlib import Path
@@ -24,7 +25,7 @@ class Waltz:
             raise ValueError(f"{instrument_path} not found")
 
         self.phrase_count = 16
-        self.composition = None
+        self.composition: Path | None = None
 
     def compose(self):
         """Compose the waltz."""
@@ -44,7 +45,7 @@ class Waltz:
 
         data = []
         for phrase in phrases:
-            wav = wave.open(str(phrase), "rb")
+            wav = wave.open(f"{phrase}", "rb")
             data.append([wav.getparams(), wav.readframes(wav.getnframes())])
             wav.close()
 
@@ -57,10 +58,11 @@ class Waltz:
 
             output.close()
 
-            self.composition = temp.name
+            self.composition = Path(temp.name)
 
     def save(self, filename: str) -> None:
-        pass
+        """Save the composition."""
+        shutil.copyfile(str(self.composition), (Path.cwd() / filename).with_suffix(".wav"))
 
     def play(self) -> None:
         """Play the waltz."""
